@@ -1,20 +1,11 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<assert.h>
-#include<stdbool.h>
-typedef int typee;
-typedef struct Stack {
-	typee* a;
-	int top;
-	int capacity;
-}ST;
+#include"Stack.h"
 void STpushback(ST* ps, typee x)
 {
 	assert(ps);
 	if (ps->capacity == ps->top)
 	{
 		ps->capacity = ps->capacity == 0 ? 4 : (ps->capacity) * 2;
-		ps->a =(typee*) realloc(ps->a, sizeof(typee) * ps->capacity);
+		ps->a = (typee*)realloc(ps->a, sizeof(typee) * (ps->capacity));
 	}
 	(ps->a)[ps->top] = x;
 	(ps->top)++;
@@ -36,9 +27,20 @@ void STDestroy(ST* ps)
 void STpop(ST* ps)
 {
 	assert(ps);
-	assert(ps->top > 0);
+	assert(ps->top> 0);
 	(ps->top)--;
+}
+typee STTop(ST* ps)
+{
+	assert(ps);
+	assert(ps->top > 0);
+	return ps->a[ps->top-1];
+}
+bool STEmpty(ST* ps)
+{
+	assert(ps);
 
+	return ps->top == 0;
 }
 int main()
 {
